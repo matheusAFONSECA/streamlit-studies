@@ -2,6 +2,13 @@ import cv2
 import streamlit as st
 import os
 
+# Configure the Streamlit page
+st.set_page_config(
+    page_title="Face Detection and Video Recording",
+    page_icon="👨‍🔧",
+    layout="wide"
+)
+
 # Set the title for the Streamlit app
 st.title("Video Capture with OpenCV")
 
