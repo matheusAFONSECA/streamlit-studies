@@ -1,5 +1,4 @@
-feat(WebCamRecord): Face Detection
+feat(WebCamRecordFaceDetection): Folder rename
 
-Aplication don't stop 
-the video of webcam when
-buttons it's clicked.
+Folder renamed to match better 
+the mening of the aplication.

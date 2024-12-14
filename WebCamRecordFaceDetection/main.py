@@ -6,8 +6,11 @@ import os
 # Set the title for the Streamlit app
 st.title("Video Capture with OpenCV")
 
+# Default directory for saving videos
+default_directory = "WebCamRecordFaceDetection"
+
 # Placeholder for the video frame
-define_directory = st.text_input("Enter directory to save video:")
+define_directory = st.text_input("Enter directory to save video:", default_directory)
 
 frame_placeholder = st.empty()
 
