@@ -1,5 +1,5 @@
 feat(WebCamRecord): Face Detection
 
-Now it's possible to 
-detect faces in frames 
-of the video.
+Aplication don't stop 
+the video of webcam when
+buttons it's clicked.
