@@ -1,6 +1,5 @@
 import cv2
 import streamlit as st
-import numpy as np
 import os
 
 # Set the title for the Streamlit app
@@ -12,7 +11,8 @@ default_directory = "WebCamRecordFaceDetection"
 # Placeholder for the video frame
 define_directory = st.text_input("Enter directory to save video:", default_directory)
 
-frame_placeholder = st.empty()
+# Create layout with two columns
+col1, col2 = st.columns([3, 1])
 
 # Session state for recording control
 if 'recording' not in st.session_state:
@@ -42,22 +42,30 @@ if define_directory and not os.path.exists(define_directory):
     except FileNotFoundError:
         st.error("Invalid directory. Please provide a valid path.")
 
-# Button controls
-if st.button("Start Recording"):
-    if define_directory and not st.session_state.recording:
-        output_path = os.path.join(define_directory, "output.avi")
-        st.session_state.out = cv2.VideoWriter(output_path, fourcc, 20.0, (frame_width, frame_height))
-        st.session_state.recording = True
-        st.write("Recording started...")
-    elif not define_directory:
-        st.error("Please specify a valid directory to save the video.")
+# Metrics and buttons in the right column
+with col2:
+    face_detected = st.empty()
+    face_detected.metric("Face Detection", "No")
 
-if st.button("Stop Recording"):
-    if st.session_state.recording:
-        st.session_state.recording = False
-        if st.session_state.out:
-            st.session_state.out.release()
-        st.write("Recording stopped.")
+    if st.button("Start Recording"):
+        if define_directory and not st.session_state.recording:
+            output_path = os.path.join(define_directory, "output.avi")
+            st.session_state.out = cv2.VideoWriter(output_path, fourcc, 20.0, (frame_width, frame_height))
+            st.session_state.recording = True
+            st.success("Recording started...")
+        elif not define_directory:
+            st.error("Please specify a valid directory to save the video.")
+
+    if st.button("Stop Recording"):
+        if st.session_state.recording:
+            st.session_state.recording = False
+            if st.session_state.out:
+                st.session_state.out.release()
+            st.error("Recording stopped.")
+
+# Video display in the left column
+with col1:
+    frame_placeholder = st.empty()
 
 while st.session_state.cap and st.session_state.cap.isOpened():
     ret, frame = st.session_state.cap.read()
@@ -72,6 +80,13 @@ while st.session_state.cap and st.session_state.cap.isOpened():
     # Detect faces in the frame
     faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
+    # Update the face detection status
+    with col2:
+        if len(faces) > 0:
+            face_detected.metric("Face Detection", "Yes")
+        else:
+            face_detected.metric("Face Detection", "No")
+
     # Draw rectangles around detected faces
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -84,7 +99,8 @@ while st.session_state.cap and st.session_state.cap.isOpened():
         st.session_state.out.write(frame)
 
     # Display the frame using Streamlit's st.image
-    frame_placeholder.image(rgb_frame, channels="RGB")
+    with col1:
+        frame_placeholder.image(rgb_frame, channels="RGB")
 
 if st.session_state.cap:
     st.session_state.cap.release()

@@ -1,4 +1,5 @@
-feat(WebCamRecordFaceDetection): Folder rename
+feat(WebCamRecordFaceDetection): Adding metrics and changing layout
 
-Folder renamed to match better 
-the mening of the aplication.
+Now the layout is using two columns to define
+better the layout. It was added metrics that show 
+if it's been detect a face or not.
