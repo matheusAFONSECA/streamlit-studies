@@ -1,4 +1,4 @@
-feat(project): Adding scripts 
+feat(WebCamRecord): project initializate
 
-scripts dedicated to help
-the build of project.
+A project build to use webcam of
+the notebook to record a video.
