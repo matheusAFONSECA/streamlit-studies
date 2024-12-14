@@ -1,4 +1,5 @@
-feat(WebCamRecord): project initializate
+feat(WebCamRecord): Face Detection
 
-A project build to use webcam of
-the notebook to record a video.
+Now it's possible to 
+detect faces in frames 
+of the video.
