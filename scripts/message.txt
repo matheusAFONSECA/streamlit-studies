@@ -1,5 +1,6 @@
-feat(WebCamRecordFaceDetection): Adding metrics
+docs(ReadMe): Updating ReadMe
 
-Now the status of recording is
-showing by a st.metrics instead
-of st.succes and st.error.
+Updating ReadMe to 
+explain better the
+porpuse of the 
+repository.
