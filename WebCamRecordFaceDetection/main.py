@@ -4,10 +4,12 @@ import os
 
 # Configure the Streamlit page
 st.set_page_config(
-    page_title="Face Detection and Video Recording",
-    page_icon="👨‍🔧",
-    layout="wide"
+    page_title="Face Detection and Video Recording", page_icon="👨‍🔧", layout="wide"
 )
+
+# Load custom CSS
+with open("WebCamRecordFaceDetection/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Set the title for the Streamlit app
 st.title("Video Capture with OpenCV")
@@ -21,43 +23,57 @@ define_directory = st.text_input("Enter directory to save video:", default_direc
 # Create layout with two columns
 col1, col2 = st.columns([3, 1])
 
-# Session state for recording control
-if 'recording' not in st.session_state:
+# Sessão para controle de estado
+if "recording" not in st.session_state:
     st.session_state.recording = False
-if 'out' not in st.session_state:
+if "out" not in st.session_state:
     st.session_state.out = None
 
-# Initialize the video capture object
-if 'cap' not in st.session_state:
+# Inicializa a captura de vídeo
+if "cap" not in st.session_state:
     st.session_state.cap = cv2.VideoCapture(0)
     if not st.session_state.cap.isOpened():
         st.write("Failed to access the camera.")
         st.session_state.cap = None
 
 # Load Haar cascade for face detection
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+)
 
 # Define video codec and output file if recording starts
-frame_width = int(st.session_state.cap.get(cv2.CAP_PROP_FRAME_WIDTH)) if st.session_state.cap else 0
-frame_height = int(st.session_state.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)) if st.session_state.cap else 0
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
+frame_width = (
+    int(st.session_state.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    if st.session_state.cap
+    else 0
+)
+frame_height = (
+    int(st.session_state.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    if st.session_state.cap
+    else 0
+)
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
 
-# Ensure the directory is set correctly
-if define_directory and not os.path.exists(define_directory):
-    try:
-        os.makedirs(define_directory)
-    except FileNotFoundError:
-        st.error("Invalid directory. Please provide a valid path.")
+# Coluna 1: Área de vídeo
+with col1:
+    st.markdown(
+        "<p style='text-align:center;'>Video Stream Area</p>", unsafe_allow_html=True
+    )
+    frame_placeholder = st.empty()
 
-# Metrics and buttons in the right column
+# Coluna 2: Área de detecção
 with col2:
+    st.markdown(
+        "<p style='text-align:center;'>Face Detection</p>", unsafe_allow_html=True
+    )
     face_detected = st.empty()
-    face_detected.metric("Face Detection", "No")
 
     if st.button("Start Recording"):
         if define_directory and not st.session_state.recording:
             output_path = os.path.join(define_directory, "output.avi")
-            st.session_state.out = cv2.VideoWriter(output_path, fourcc, 20.0, (frame_width, frame_height))
+            st.session_state.out = cv2.VideoWriter(
+                output_path, fourcc, 20.0, (frame_width, frame_height)
+            )
             st.session_state.recording = True
             st.success("Recording started...")
         elif not define_directory:
@@ -70,10 +86,7 @@ with col2:
                 st.session_state.out.release()
             st.error("Recording stopped.")
 
-# Video display in the left column
-with col1:
-    frame_placeholder = st.empty()
-
+# Loop de captura
 while st.session_state.cap and st.session_state.cap.isOpened():
     ret, frame = st.session_state.cap.read()
 
@@ -81,31 +94,25 @@ while st.session_state.cap and st.session_state.cap.isOpened():
         st.write("The video capture has ended.")
         break
 
-    # Convert the frame from BGR to grayscale for face detection
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(
+        gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30)
+    )
 
-    # Detect faces in the frame
-    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-
-    # Update the face detection status
     with col2:
         if len(faces) > 0:
-            face_detected.metric("Face Detection", "Yes")
+            face_detected.metric("Faces Detecteds", len(faces))
         else:
-            face_detected.metric("Face Detection", "No")
+            face_detected.metric("Faces Detecteds", "No faces detected")
 
-    # Draw rectangles around detected faces
-    for (x, y, w, h) in faces:
+    for x, y, w, h in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    # Convert the frame from BGR to RGB format
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # Write the frame to the output video file if recording
     if st.session_state.recording and st.session_state.out:
         st.session_state.out.write(frame)
 
-    # Display the frame using Streamlit's st.image
     with col1:
         frame_placeholder.image(rgb_frame, channels="RGB")
 

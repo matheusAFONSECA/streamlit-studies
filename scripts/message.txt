@@ -1,3 +1,4 @@
-feat(WebCamRecordFaceDetection): Page config added
+feat(WebCamRecordFaceDetection): Adding style
 
-Added a page config to the code.
+Now it was added a style to the code
+of streamit using CSS.

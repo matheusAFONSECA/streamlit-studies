@@ -1,0 +1,23 @@
+/* Define o fundo da primeira coluna */
+div.stColumn:nth-of-type(1) {
+    background-color: #ADD8E6 !important; /* Azul claro */
+    padding: 20px !important;
+    border-radius: 5px;
+    min-height: 600px;
+}
+
+/* Define o fundo da segunda coluna */
+div.stColumn:nth-of-type(2) {
+    background-color: #00008B !important; /* Azul escuro */
+    color: white !important;
+    padding: 20px !important;
+    border-radius: 5px;
+    min-height: 600px;
+}
+
+/* Estilização para alinhar texto ao centro */
+div.stColumn p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
