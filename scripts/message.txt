@@ -1,4 +1,5 @@
-feat(WebCamRecordFaceDetection): Adding style
+feat(WebCamRecordFaceDetection): Adding metrics
 
-Now it was added a style to the code
-of streamit using CSS.
+Now the status of recording is
+showing by a st.metrics instead
+of st.succes and st.error.

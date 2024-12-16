@@ -28,6 +28,27 @@ if "recording" not in st.session_state:
     st.session_state.recording = False
 if "out" not in st.session_state:
     st.session_state.out = None
+if "recording_status" not in st.session_state:
+    st.session_state.recording_status = "Not Recording"
+
+# Callback para iniciar gravação
+def start_recording():
+    if define_directory and not st.session_state.recording:
+        output_path = os.path.join(define_directory, "output.avi")
+        fourcc = cv2.VideoWriter_fourcc(*"XVID")
+        st.session_state.out = cv2.VideoWriter(
+            output_path, fourcc, 20.0, (frame_width, frame_height)
+        )
+        st.session_state.recording = True
+        st.session_state.recording_status = "Recording"
+
+# Callback para parar gravação
+def stop_recording():
+    if st.session_state.recording:
+        st.session_state.recording = False
+        st.session_state.recording_status = "Not Recording"
+        if st.session_state.out:
+            st.session_state.out.release()
 
 # Inicializa a captura de vídeo
 if "cap" not in st.session_state:
@@ -41,7 +62,7 @@ face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
-# Define video codec and output file if recording starts
+# Define video codec e dimensões
 frame_width = (
     int(st.session_state.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     if st.session_state.cap
@@ -52,39 +73,23 @@ frame_height = (
     if st.session_state.cap
     else 0
 )
-fourcc = cv2.VideoWriter_fourcc(*"XVID")
 
 # Coluna 1: Área de vídeo
 with col1:
-    st.markdown(
-        "<p style='text-align:center;'>Video Stream Area</p>", unsafe_allow_html=True
-    )
+    st.markdown("<p style='text-align:center;'>Video Stream Area</p>", unsafe_allow_html=True)
     frame_placeholder = st.empty()
 
-# Coluna 2: Área de detecção
+# Coluna 2: Área de detecção e status
 with col2:
-    st.markdown(
-        "<p style='text-align:center;'>Face Detection</p>", unsafe_allow_html=True
-    )
+    st.markdown("<p style='text-align:center;'>Face Detection</p>", unsafe_allow_html=True)
     face_detected = st.empty()
 
-    if st.button("Start Recording"):
-        if define_directory and not st.session_state.recording:
-            output_path = os.path.join(define_directory, "output.avi")
-            st.session_state.out = cv2.VideoWriter(
-                output_path, fourcc, 20.0, (frame_width, frame_height)
-            )
-            st.session_state.recording = True
-            st.success("Recording started...")
-        elif not define_directory:
-            st.error("Please specify a valid directory to save the video.")
+    # Métrica para status de gravação
+    st.metric("Recording Status", st.session_state.recording_status)
 
-    if st.button("Stop Recording"):
-        if st.session_state.recording:
-            st.session_state.recording = False
-            if st.session_state.out:
-                st.session_state.out.release()
-            st.error("Recording stopped.")
+    # Botões com callbacks
+    st.button("Start Recording", on_click=start_recording)
+    st.button("Stop Recording", on_click=stop_recording)
 
 # Loop de captura
 while st.session_state.cap and st.session_state.cap.isOpened():
@@ -101,9 +106,9 @@ while st.session_state.cap and st.session_state.cap.isOpened():
 
     with col2:
         if len(faces) > 0:
-            face_detected.metric("Faces Detecteds", len(faces))
+            face_detected.metric("Faces Detected", len(faces))
         else:
-            face_detected.metric("Faces Detecteds", "No faces detected")
+            face_detected.metric("Faces Detected", "No faces detected")
 
     for x, y, w, h in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
