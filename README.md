@@ -2,8 +2,6 @@
 
 ![Python](https://img.shields.io/badge/language-Python-yellow) 
 ![Streamlit](https://img.shields.io/badge/framework-Streamlit-red)
-![CSS](https://img.shields.io/badge/style-CSS-blue)
-![OpenCV](https://img.shields.io/badge/library-OpenCV-green)
 
 A repository dedicated to storing code specifically for the ``Streamlit`` framework.
 
@@ -11,6 +9,7 @@ A repository dedicated to storing code specifically for the ``Streamlit`` framew
 
 - [Projects](#projects)
   - [Detection of Faces and Video Recording](#detection-of-faces-and-video-recording)
+- [How to run](#how-to-run)
 - [Authors](#authors)
 
 ## Projects
@@ -22,6 +21,22 @@ This repository contains various mini-projects designed to explore and showcase 
 This project focuses on integrating a real-time camera feed with a Streamlit interface to detect faces and record videos. It also explores the use of ``CSS`` for designing components and layouts within the project. The video is displayed in real-time, and face detection is performed using the ``Haar Cascade classifier`` from ``OpenCV``. Additionally, the application uses sessions to manage the application's state and metrics to dynamically display its status.
 
 The documentation for this project can be found [here](WebCamRecordFaceDetection/explanation.md).
+
+## How to Run
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/matheusAFONSECA/streamlit-studies.git
+   cd streamlit-studies
+   ```
+
+2. Run the projects:
+
+    ```bash
+    streamlit run main.py
+    ```
+
+3. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
 
 ## Authors
 

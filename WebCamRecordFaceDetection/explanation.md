@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/language-Python-yellow) 
+![Streamlit](https://img.shields.io/badge/framework-Streamlit-red)
+![CSS](https://img.shields.io/badge/style-CSS-blue)
+![OpenCV](https://img.shields.io/badge/library-OpenCV-green)
+
 # Detection of Faces and Video Recording
 
 This project leverages **OpenCV** to capture images from the machine's webcam and display them in a **Streamlit** interface. It also performs **face detection** using the **Haar Cascade Classifier**. Additionally, users can **record videos** for any desired duration. While recording, the interface displays:
@@ -42,18 +47,24 @@ You can install the dependencies using:
 pip install opencv-python streamlit
 ```
 
+It's possible to install dependencies using the `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
 ---
 
 ## How to Run
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/matheusAFONSECA/streamlit-studies.git
+   cd streamlit-studies
    ```
 
 2. Run the Streamlit application:
    ```bash
-   streamlit run app.py
+   streamlit run WebCamRecordFaceDetection\main.py
    ```
 
 3. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
@@ -61,13 +72,12 @@ pip install opencv-python streamlit
 ---
 
 ## Project Structure
-```
-project-directory/
-├── app.py                 # Main Streamlit application
-├── haarcascade.xml        # Haar Cascade XML file for face detection
-├── recordings/            # Directory to save recorded videos
-├── utils/                 # Utility scripts (if applicable)
-└── README.md              # Project documentation
+
+```text
+WebCamRecordFaceDetection/
+├── main.py                      # Main Streamlit application
+├── style.css                    # style of the Streamlit aplication
+└── explanation.md               # Project documentation
 ```
 
 ---
@@ -81,11 +91,13 @@ project-directory/
 ---
 
 ## Screenshots
+
 **(Add screenshots of your Streamlit interface showcasing video recording and face detection here)**
 
 ---
 
 ## Acknowledgments
+
 - **OpenCV** for computer vision capabilities.
 - **Streamlit** for providing an easy-to-use web interface framework.
 - **Haar Cascade Classifier** for face detection.
