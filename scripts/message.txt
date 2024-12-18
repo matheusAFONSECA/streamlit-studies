@@ -1,5 +1,5 @@
-docs(WebCamRecordFaceDetection): Updating explanation
+feat(project): Projects main
 
-Markdown dedicated to explain the code 
-was made the base of what will be 
-explained.
+Made a code dedicated
+to show all the projects
+made to study streamlit.
