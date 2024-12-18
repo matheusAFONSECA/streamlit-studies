@@ -1,6 +1,5 @@
-docs(ReadMe): Updating ReadMe
+docs(WebCamRecordFaceDetection): Updating explanation
 
-Updating ReadMe to 
-explain better the
-porpuse of the 
-repository.
+Markdown dedicated to explain the code 
+was made the base of what will be 
+explained.
