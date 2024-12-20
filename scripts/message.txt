@@ -1,4 +1,4 @@
-wip(project): Configuration of docker
+feat(project): Changing folder
 
-Making a docker to run the
-projects with the main code.
+Changing folder to run
+better the code with docker.

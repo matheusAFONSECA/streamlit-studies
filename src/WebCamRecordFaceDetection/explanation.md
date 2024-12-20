@@ -64,7 +64,7 @@ pip install -r requirements.txt
 
 2. Run the Streamlit application:
    ```bash
-   streamlit run WebCamRecordFaceDetection\main.py
+   streamlit run src\WebCamRecordFaceDetection\main.py
    ```
 
 3. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.

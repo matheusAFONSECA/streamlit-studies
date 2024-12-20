@@ -39,7 +39,7 @@ The documentation for this project can be found [here](WebCamRecordFaceDetection
 3. Run the projects:
 
     ```bash
-    streamlit run main.py
+    streamlit run src/main.py
     ```
 
 4. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.

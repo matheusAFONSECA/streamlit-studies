@@ -5,7 +5,7 @@ import streamlit as st
 
 def webcam_record_face_detection_main():
     # Load custom CSS
-    with open("WebCamRecordFaceDetection/style.css") as f:
+    with open("src/WebCamRecordFaceDetection/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     # Set the title for the Streamlit app
