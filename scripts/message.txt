@@ -1,5 +1,4 @@
-feat(project): Projects main
+wip(project): Configuration of docker
 
-Made a code dedicated
-to show all the projects
-made to study streamlit.
+Making a docker to run the
+projects with the main code.

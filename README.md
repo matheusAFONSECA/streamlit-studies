@@ -30,13 +30,19 @@ The documentation for this project can be found [here](WebCamRecordFaceDetection
    cd streamlit-studies
    ```
 
-2. Run the projects:
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the projects:
 
     ```bash
     streamlit run main.py
     ```
 
-3. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
+4. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
 
 ## Authors
 
