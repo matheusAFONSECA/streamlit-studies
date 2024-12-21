@@ -1,4 +1,5 @@
-feat(project): Changing folder
+docs(project): Updating ReadMe
 
-Changing folder to run
-better the code with docker.
+It was updated the ReadMe
+to explain how to run the
+project with docker.

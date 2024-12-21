@@ -20,9 +20,12 @@ This repository contains various mini-projects designed to explore and showcase 
 
 This project focuses on integrating a real-time camera feed with a Streamlit interface to detect faces and record videos. It also explores the use of ``CSS`` for designing components and layouts within the project. The video is displayed in real-time, and face detection is performed using the ``Haar Cascade classifier`` from ``OpenCV``. Additionally, the application uses sessions to manage the application's state and metrics to dynamically display its status.
 
-The documentation for this project can be found [here](WebCamRecordFaceDetection/explanation.md).
+The documentation for this project can be found [here](src/WebCamRecordFaceDetection/explanation.md).
 
 ## How to Run
+
+### Running localy
+
 1. Clone the repository:
 
    ```bash
@@ -43,6 +46,23 @@ The documentation for this project can be found [here](WebCamRecordFaceDetection
     ```
 
 4. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
+
+### Running via docker
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/matheusAFONSECA/streamlit-studies.git
+   cd streamlit-studies
+   ```
+
+2. run this command:
+
+    ```bash
+    docker compose --build
+    ```
+
+3. Open the link provided in the terminal (e.g., `http://localhost:8501`) to access the interface.
 
 ## Authors
 
